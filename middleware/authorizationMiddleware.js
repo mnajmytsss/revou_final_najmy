@@ -12,6 +12,7 @@ const authorizationMiddleware = (allowedRoles) => (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, JWT_SIGN);
+    // console.log(decodedToken.role);
 
     // Check if the decoded token's role is included in the allowed roles
     if (allowedRoles.includes(decodedToken.role)) {
@@ -24,9 +25,9 @@ const authorizationMiddleware = (allowedRoles) => (req, res, next) => {
   }
 };
 
-const authorizationMiddlewareForRole1 = authorizationMiddleware(['1']);
-const authorizationMiddlewareForRole2 = authorizationMiddleware(['2']);
-const authorizationMiddlewareForRole3 = authorizationMiddleware(['3']);
+const authorizationMiddlewareForRole1 = authorizationMiddleware("1");
+const authorizationMiddlewareForRole2 = authorizationMiddleware("2");
+const authorizationMiddlewareForRole3 = authorizationMiddleware("3");
 
 module.exports = {
   authorizationMiddlewareForRole1,
