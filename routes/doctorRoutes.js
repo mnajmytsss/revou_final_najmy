@@ -1,8 +1,10 @@
 const { Router } = require("express")
-const { registerDoctor } = require("../controller/doctorController")
+const { registerDoctor, getAllDoctors } = require("../controller/doctorController")
+const { authorizationMiddlewareForRole2 } = require('../middleware/authorizationMiddleware')
 
 const doctorRouter = Router()
 
-doctorRouter.post("/register", registerDoctor)
+doctorRouter.post("/register", authorizationMiddlewareForRole2, registerDoctor)
+doctorRouter.get("/getAllDoctors", getAllDoctors)
 
 module.exports = doctorRouter
