@@ -50,7 +50,32 @@ async function getAllDoctors(req, res) {
   }
 }
 
+async function getDoctorById(req, res) {
+  try {
+    const { dok_id } = req.params;
+
+    // Check if dok_id is provided
+    if (!dok_id) {
+      return res.status(400).json({ error: 'Parameter dok_id is required.' });
+    }
+
+    // Fetch the doctor with the specified ID from the DOCTORS table
+    const [doctor] = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+
+    // Check if the doctor is found
+    if (doctor.length === 0) {
+      return res.status(404).json({ error: 'Doctor not found.' });
+    }
+
+    res.status(200).json({ doctor: doctor[0] });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Terjadi kesalahan server.' });
+  }
+}
+
 module.exports = {
   registerDoctor,
   getAllDoctors,
+  getDoctorById,
 };
