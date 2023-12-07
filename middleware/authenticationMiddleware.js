@@ -1,22 +1,34 @@
-const jwt = require("jsonwebtoken")
-const { JWT_SIGN } = require("../config")
+const jwt = require('jsonwebtoken');
+const { JWT_SIGN } = require('../config');
+const db = require('../db');
 
-const authenticationMiddleware = (req, res, next) => {
-    const authHeader = req.headers.authorization
+async function authenticationMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization
+  const token = authHeader.split(' ')[1]
 
-    if(!authHeader) {
-        res.status(401).json({ error: "unauthorized"})
-    } else {
-        const token= authHeader.split(' ') [1]
+  if (!token) {
+    return res.status(401).json({ error: 'Token not provided' });
+  }
 
-        try {
-            const decodedToken = jwt.verify(token, JWT_SIGN)
-            console.log(decodedToken, "decodedToken");
-            next()
-        } catch (error) {
-            res.status(400).json({ error: error.message})
-        }
+  try {
+    
+    const decoded = jwt.verify(token, JWT_SIGN);
+    if (!decoded.id) {
+        return res.status(401).json({ error: 'Invalid token - Missing user ID' });
+      }
+    const [user] = await db.execute('SELECT * FROM USERS WHERE user_id = ?', [decoded.id]);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid token - User not found' });
     }
+
+    // req.user = user[0].ROLE_ID;
+    req.decodedToken = decoded;
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ error: 'Invalid token - Token verification failed' });
+  }
 }
 
-module.exports = authenticationMiddleware
+module.exports = authenticationMiddleware;
