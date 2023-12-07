@@ -38,6 +38,19 @@ async function registerDoctor(req, res) {
   }
 }
 
+async function getAllDoctors(req, res) {
+  try {
+    // Fetch all doctors from the DOKTERS table
+    const [doctors] = await db.execute('SELECT * FROM DOCTORS');
+
+    res.status(200).json({ doctors });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Terjadi kesalahan server.' });
+  }
+}
+
 module.exports = {
   registerDoctor,
+  getAllDoctors,
 };
