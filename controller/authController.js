@@ -41,25 +41,27 @@ async function login(req, res) {
       return res.status(400).json({ error: 'Silakan lengkapi semua data.' });
     }
 
-    const [users] = await db.execute('SELECT * FROM USERS WHERE user_email = ?', [user_email]);
+    const users = await db.execute('SELECT * FROM USERS WHERE user_email = ?', [user_email]);
 
     if (users.length === 0) {
       return res.status(401).json({ error: 'Email atau kata sandi salah.' });
     }
 
     const user = users[0]; 
-
-    const passwordMatch = await bcrypt.compare(user_pass, user.USER_PASS);
+    const passwordMatch = await bcrypt.compare(user_pass, user[0].USER_PASS);
+    
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Email atau kata sandi salah.' });
     }
 
     const tokenPayload = {
-      email: user.user_email, 
-      id: user.user_id, 
-      role: user.role_id, 
+      email: user[0].USER_EMAIL, 
+      id: user[0].USER_ID, 
+      role: user[0].ROLE_ID, 
     };
+
+    console.log(tokenPayload);
 
     const token = jwt.sign(tokenPayload, JWT_SIGN, {
       expiresIn: '1h', 
