@@ -2,26 +2,18 @@ const db = require('../db');
 const jwt = require('jsonwebtoken');
 const { JWT_SIGN } = require('../config');
 
-const validDokStatusValues = [0, 1];
-
-async function activateDoctorAccountController(req, res) {
+async function activateDoctorStatus(req, res) {
   try {
-    // Mendapatkan dok_id dan dok_status dari params dan body
     const { dok_id } = req.params;
-    let { dok_status } = req.body;
-
-    // Memastikan bahwa dok_status adalah nilai yang valid
-    dok_status = parseInt(dok_status); 
-    if (!validDokStatusValues.includes(dok_status)) {
-      return res.status(400).json({ error: 'Nilai dok_status tidak valid. Hanya 0 atau 1 yang diperbolehkan.' });
-    }
+    const dok_status = 1 
 
     // Mendapatkan informasi dokter yang akan diupdate
-    const [existingDoctor] = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+    const existingDoctor = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+    arrDoc = existingDoctor[0]
 
     // Memeriksa apakah dokter ditemukan
-    if (existingDoctor.length === 0) {
-      return res.status(404).json({ error: 'Doctor not found.' });
+    if (arrDoc.length === 0) {
+      return res.status(404).json({ error: 'Dokter dengan id tersebut tidak ditemukan' });
     }
 
     // Memeriksa apakah user yang mengakses memiliki role 3 (admin)
@@ -30,10 +22,15 @@ async function activateDoctorAccountController(req, res) {
       return res.status(403).json({ error: 'Anda tidak memiliki izin untuk memperbarui status dokter.' });
     }
 
+    // Memeriksa apakah dokter memiliki dok_status yang sedang tidak aktif (0)
+    if (arrDoc[0].DOK_STATUS !== 0) {
+      return res.status(400).json({ error: 'Status dokter sudah aktif.' });
+    }
+
     // Update dok_status pada tabel DOCTORS
     await db.execute('UPDATE DOCTORS SET DOK_STATUS = ? WHERE DOK_ID = ?', [dok_status, dok_id]);
 
-    res.status(200).json({ message: 'Doctor status updated successfully.' });
+    res.status(200).json({ message: 'Status dokter sudah aktif' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan server.' });
@@ -41,5 +38,5 @@ async function activateDoctorAccountController(req, res) {
 }
 
 module.exports = {
-  activateDoctorAccountController,
+  activateDoctorStatus,
 };
