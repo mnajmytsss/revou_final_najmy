@@ -3,7 +3,7 @@ const db = require('../db');
 const { JWT_SIGN } = require('../config');
 const jwt = require('jsonwebtoken')
 
-const validRoles = ['1', '2'];
+const validRoles = ['1', '2', '3'];
 
 async function register(req, res) {
   try {
@@ -68,7 +68,7 @@ async function login(req, res) {
     });
 
     res.status(200).json({
-      message: 'User successfully logged in',
+      message: 'Selamat datang! Anda berhasil masuk.',
       data: {
         token
       },
