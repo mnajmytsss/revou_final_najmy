@@ -5,6 +5,7 @@ const authRouter = require('./authRoutes')
 const doctorRouter = require('./doctorRoutes')
 const authenticationMiddleware = require('../middleware/authenticationMiddleware');
 const actDoctorRouter = require("./activateDoctorAccount");
+const deactDoctorRouter = require("./deactivateDoctorAccount");
 
 const router = Router();
 
@@ -13,5 +14,6 @@ router.use("/api/v1/attack", preventAttackController)
 router.use("/auth", authRouter)
 router.use("/api/v1/doctor", authenticationMiddleware, doctorRouter)
 router.use("/api/v1/admin", authenticationMiddleware, actDoctorRouter)
+router.use("/api/v1/admin", authenticationMiddleware, deactDoctorRouter)
 
 module.exports = router;
