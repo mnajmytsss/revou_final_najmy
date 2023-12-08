@@ -23,6 +23,13 @@ async function registerDoctor(req, res) {
     if (existingUser.length === 0) {
       return res.status(404).json({ error: 'User dengan ID yang diberikan tidak ditemukan.' });
     }
+
+    // Check if the user has already registered as a doctor
+    const [existingDoctor] = await db.execute('SELECT * FROM DOCTORS WHERE USER_ID = ?', [user_id]);
+    if (existingDoctor.length > 0) {
+      return res.status(400).json({ error: 'Anda sudah terdaftar sebagai dokter.' });
+    }
+
     // Insert data dokter ke dalam tabel DOKTERS
     const [result] = await db.execute(
       'INSERT INTO DOCTORS (USER_ID, DOK_NAME, DOK_SPEC, DOK_EMAIL, DOK_TELP, DOK_BIO, DOK_NOSTR, DOK_LOCATION, DOK_EXP, DOK_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -70,6 +77,48 @@ async function getDoctorById(req, res) {
     res.status(200).json({ doctor: doctor[0] });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: 'Terjadi kesalahan server.'});
+  }
+}
+
+async function updateDoctor(req, res) {
+  try {
+    const { dok_id } = req.params;
+    const updateParams = req.body;
+
+    // Fetch the existing doctor with the specified ID
+    const existingDoctor = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+    arrDoc = existingDoctor[0];
+   
+    // Check if the doctor is found
+    if (arrDoc.length === 0) {
+      return res.status(404).json({ error: 'Doctor not found.' });
+    }
+
+    // Ensure that the authenticated user is the owner of the doctor profile
+    const decoded = jwt.verify(req.headers.authorization.split(' ')[1], JWT_SIGN);
+    if (decoded.id !== arrDoc[0].USER_ID) {
+      return res.status(403).json({ error: 'Anda tidak memiliki izin untuk memperbarui informasi dokter ini.' });
+    }
+    ;
+    // Generate the SET part of the SQL query based on the provided updateParams
+    const updateValues = Object.keys(updateParams)
+      .map((key) => `${key} = ?`)
+      .join(', ');
+
+    // Prepare the SQL query with dynamic SET values
+    const sqlQuery = `UPDATE DOCTORS SET ${updateValues} WHERE DOK_ID = ?`;
+
+    // Prepare the values for execution
+    const updateValuesArray = Object.values(updateParams);
+    updateValuesArray.push(dok_id);
+
+    // Update the doctor's information in the DOCTORS table
+    await db.execute(sqlQuery, updateValuesArray);
+
+    res.status(200).json({ message: 'Informasi dokter berhasil diperbarui.' });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan server.' });
   }
 }
@@ -78,4 +127,5 @@ module.exports = {
   registerDoctor,
   getAllDoctors,
   getDoctorById,
+  updateDoctor,
 };
