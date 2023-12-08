@@ -4,7 +4,7 @@ const { authorizationMiddlewareForRole2 } = require('../middleware/authorization
 
 const doctorRouter = Router()
 
-doctorRouter.post("/register", authorizationMiddlewareForRole2, registerDoctor)
+doctorRouter.post("/registerDoctor", authorizationMiddlewareForRole2, registerDoctor)
 doctorRouter.get("/getAllDoctors", getAllDoctors)
 doctorRouter.get("/getDoctorById/:dok_id", getDoctorById)
 doctorRouter.put("/updateDoctor/:dok_id", updateDoctor)
