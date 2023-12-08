@@ -18,7 +18,7 @@ const authorizationMiddleware = (allowedRoles) => (req, res, next) => {
     if (allowedRoles.includes(decodedToken.role)) {
       next();
     } else {
-      return res.status(403).json({ error: 'Forbidden' });
+      return res.status(403).json({ error: 'Akses ditolak!' });
     }
   } catch (error) {
     return res.status(400).json({ error: error.message });
