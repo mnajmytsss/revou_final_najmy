@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "b2a652a5-f96a-4636-9df4-feae7cccdf16",
+		"name": "Group Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29017989"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "registerUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_email\": \"najmyts@gmail.com\",\n    \"user_pass\": \"najmy123\",\n    \"role_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{based_url}}/auth/register",
+							"host": [
+								"{{based_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_email\": \"najmy@gmail.com\",\n    \"user_pass\": \"najmy123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{based_url}}/auth/login",
+							"host": [
+								"{{based_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "activateDocAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjo5LCJyb2xlIjozLCJpYXQiOjE3MDIwMjc4NTksImV4cCI6MTcwMjAzMTQ1OX0.Y0wFdUyPgj8umodKbvn8x98IUvIt5OwNtAUj6-0ENro",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dok_status\": \"0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/admin/activateDoctor/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"activateDoctor",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivateDocAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjo5LCJyb2xlIjozLCJpYXQiOjE3MDIwMzE4OTUsImV4cCI6MTcwMjAzNTQ5NX0.YyIWQ0EtcjIehevphNy24xTVbgBLeQCl_lbopqjz8kc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/admin/deactivateDoctor/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"deactivateDoctor",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "registerDoctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"dok_name\": \"Dr. John Doe\",\n  \"dok_spec\": \"Cardiologist\",\n  \"dok_email\": \"dok@email.com\",\n  \"dok_telp\": \"1234567890\",\n  \"dok_bio\": \"Experienced cardiologist with a passion for patient care.\",\n  \"dok_nostr\": \"12345\",\n  \"dok_location\": \"Hospital XYZ, City\",\n  \"dok_exp\": \"10 years\",\n  \"dok_status\": \"Active\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/doctor/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"doctor",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllDoctors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7001/api/v1/doctor/getAllDoctors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"doctor",
+								"getAllDoctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctorById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7001/api/v1/doctor/getDoctorById/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"doctor",
+								"getDoctorById",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDoctor",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
