@@ -40,7 +40,7 @@ git clone <repository-url>
 cd <project-directory>
 
 # Install dependencies
-npm install
+pnpm install
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ Run the server using the following command:
 
 bashCopy code
 
-`# Run the server npm start`
+`# Run the server pnpm start`
 
 The server will be accessible at `http://localhost:7001`.
 
