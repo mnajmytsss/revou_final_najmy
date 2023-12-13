@@ -57,7 +57,7 @@ The server will be accessible at `http://localhost:7001`.
 
 ### Register User
 
-### `POST /auth/register`
+### `POST /api/v1/auth/register`
 
 
 **Request:**
@@ -80,7 +80,7 @@ The server will be accessible at `http://localhost:7001`.
 
 ### Login User
 
-### `POST /auth/login`
+### `POST /api/v1/auth/login`
 
 **Response:**
 
@@ -184,6 +184,8 @@ Token Authorization required
 
 ### `PUT /api/v1/doctor/update/:dok_id`
 
+Token Authorization required
+
 **Request:**
 
 ```
@@ -212,6 +214,8 @@ Token Authorization required
 
 ### `PUT /api/v1/admin/activateDoctor/:dok_id`
 
+Token Authorization required
+
 **Request:**
 
 ```
@@ -233,6 +237,8 @@ Token Authorization required
 
 ### `PUT /api/v1/admin/deactivateDoctor/:dok_id`
 
+Token Authorization required
+
 **Request:**
 
 ```
@@ -247,6 +253,100 @@ Token Authorization required
 ```
 {
     "message": "Status dokter sudah tidak aktif"
+}
+```
+
+### Register Informer
+
+### `POST /api/v1/informer/register`
+
+Token Authorization required
+
+**Request:**
+
+```
+{
+  "inf_name": "Bulus Putih",
+  "inf_nik": "3202182710970123",
+  "inf_telp": "085674235412"
+}
+
+```
+
+**Response:**
+
+```
+{
+    "inf_id": 3
+}
+```
+
+### Get All Informer
+
+### `GET /api/v1/informer/getAll`
+
+Token Authorization required
+
+**Response:**
+
+```
+{
+    "informer": [
+        {
+            "INF_ID": 1,
+            "USER_ID": 4,
+            "INF_NAME": "Bulus Hitam",
+            "INF_NIK": "3202182710970123",
+            "INF_TELP": 85674235412
+        }
+    ]
+}
+```
+
+### Get Informer By Id
+
+### `GET /api/v1/informer/getById/:inf_id`
+
+Token Authorization required
+
+**Response:**
+
+```
+{
+    "informer": [
+        {
+            "INF_ID": 1,
+            "USER_ID": 4,
+            "INF_NAME": "Bulus Hitam",
+            "INF_NIK": "3202182710970123",
+            "INF_TELP": 85674235412
+        }
+    ]
+}
+```
+
+### Update Informer
+
+### `PUT /api/v1/informer/update/:inf_id`
+
+Token Authorization required
+
+**Request:**
+
+```
+{
+  "inf_name": "Bulus Hitam",
+  "inf_nik": "3202182710970123",
+  "inf_telp": "085674235412"
+}
+
+```
+
+**Response:**
+
+```
+{
+    "message": "Informasi informer berhasil diperbarui."
 }
 ```
 
