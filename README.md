@@ -53,7 +53,11 @@ bashCopy code
 
 The server will be accessible at `http://localhost:7001`.
 
+***
+
 ## Endpoints
+
+***
 
 ### Register User
 
@@ -77,6 +81,7 @@ The server will be accessible at `http://localhost:7001`.
 "id": 1
 }
 ```
+***
 
 ### Login User
 
@@ -102,6 +107,8 @@ The server will be accessible at `http://localhost:7001`.
     }
 }
 ```
+***
+
 ## Register Doctor
 
 ### `POST /api/v1/doctor/register`
@@ -130,6 +137,7 @@ Token Authorization required
     "dok_id": number
 }
 ```
+***
 
 ### Get All Doctors
 
@@ -157,6 +165,7 @@ Token Authorization required
     ]
 }
 ```
+***
 
 ## Get Doctor By ID
 
@@ -179,6 +188,7 @@ Token Authorization required
     "dok_exp": "10 years"
 }
 ```
+***
 
 ### Update Doctor 
 
@@ -209,6 +219,7 @@ Token Authorization required
     "error": "Informasi dokter berhasil diperbarui."
 }
 ```
+***
 
 ### Activate Doctor Account
 
@@ -232,6 +243,7 @@ Token Authorization required
     "error": "Status dokter sudah aktif."
 }
 ```
+***
 
 ### Dectivate Doctor Account
 
@@ -255,6 +267,7 @@ Token Authorization required
     "message": "Status dokter sudah tidak aktif"
 }
 ```
+***
 
 ### Register Informer
 
@@ -280,6 +293,7 @@ Token Authorization required
     "inf_id": 3
 }
 ```
+***
 
 ### Get All Informer
 
@@ -302,6 +316,7 @@ Token Authorization required
     ]
 }
 ```
+***
 
 ### Get Informer By Id
 
@@ -324,6 +339,7 @@ Token Authorization required
     ]
 }
 ```
+***
 
 ### Update Informer
 
