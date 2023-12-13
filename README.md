@@ -106,7 +106,7 @@ The server will be accessible at `http://localhost:7001`.
 
 ### `POST /api/v1/doctor/register`
 
-Token Authorization Reguired
+Token Authorization required
 
 **Request:**
 
@@ -133,9 +133,9 @@ Token Authorization Reguired
 
 ### Get All Doctors
 
-### `GET /api/v1/doctor/getAllDoctors`
+### `GET /api/v1/doctor/getAll`
 
-Token Authorization Reguired
+Token Authorization required
 
 **Response:**
 
@@ -160,9 +160,9 @@ Token Authorization Reguired
 
 ## Get Doctor By ID
 
-### `GET /api/v1/doctor/getDoctorById/:dok_id`
+### `GET /api/v1/doctor/getById/:dok_id`
 
-Token Authorization Reguired
+Token Authorization required
 
 **Response:**
 
@@ -182,7 +182,7 @@ Token Authorization Reguired
 
 ### Update Doctor 
 
-### `PUT /api/v1/doctor/updateDoctor/:dok_id`
+### `PUT /api/v1/doctor/update/:dok_id`
 
 **Request:**
 
