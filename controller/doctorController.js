@@ -11,8 +11,6 @@ async function registerDoctor(req, res) {
     // memastikan user telah login dan memiliki role dengan value 2
     const decoded = jwt.verify(token, JWT_SIGN);
     const user_id = decoded.id
-    console.log(decoded.role);
-    console.log(decoded.id, dok_name, dok_spec, dok_email, dok_telp, dok_bio, dok_nostr, dok_location, dok_exp);
 
     if (decoded.role !== (2)) {
       return res.status(403).json({ error: 'Anda tidak memiliki izin untuk mendaftar sebagai dokter.' });
