@@ -349,6 +349,7 @@ Token Authorization required
     "message": "Informasi informer berhasil diperbarui."
 }
 ```
+***
 
 ## Authentication
 
