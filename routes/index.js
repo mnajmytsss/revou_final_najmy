@@ -7,6 +7,7 @@ const authenticationMiddleware = require('../middleware/authenticationMiddleware
 const actDoctorRouter = require("./activateDoctorAccount");
 const deactDoctorRouter = require("./deactivateDoctorAccount");
 const informerRouter = require("./informerRoutes")
+const imagesRouter = require("./uploadImagesRoutes")
 
 const router = Router();
 
@@ -17,5 +18,6 @@ router.use("/api/v1/doctor", authenticationMiddleware, doctorRouter)
 router.use("/api/v1/admin", authenticationMiddleware, actDoctorRouter)
 router.use("/api/v1/admin", authenticationMiddleware, deactDoctorRouter)
 router.use("/api/v1/informer", authenticationMiddleware, informerRouter)
+router.use("/api/v1/image",authenticationMiddleware, imagesRouter)
 
 module.exports = router;
