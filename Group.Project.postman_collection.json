@@ -158,14 +158,276 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "registerDoctor",
+					"name": "Doctor",
+					"item": [
+						{
+							"name": "registerDoctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"dok_name\": \"Dr. John Doe\",\n  \"dok_spec\": \"Cardiologist\",\n  \"dok_email\": \"dok@email.com\",\n  \"dok_telp\": \"1234567890\",\n  \"dok_bio\": \"Experienced cardiologist with a passion for patient care.\",\n  \"dok_nostr\": \"12345\",\n  \"dok_location\": \"Hospital XYZ, City\",\n  \"dok_exp\": \"10 years\",\n  \"dok_status\": \"Active\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllDoctors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRva3RlcjJAZ21haWwuY29tIiwiaWQiOjE0LCJyb2xlIjoyLCJpYXQiOjE3MDIxOTYxNDksImV4cCI6MTcwMjE5OTc0OX0.K3xhpgRRRMYwLEJ2emwhrYsdC00AW6GcSXngojV5CUw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/getAllDoctors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"getAllDoctors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getDoctorById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRva3RlcjJAZ21haWwuY29tIiwiaWQiOjE0LCJyb2xlIjoyLCJpYXQiOjE3MDIxOTYxNDksImV4cCI6MTcwMjE5OTc0OX0.K3xhpgRRRMYwLEJ2emwhrYsdC00AW6GcSXngojV5CUw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/getDoctorById/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"getDoctorById",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateDoctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRva3RlcjJAZ21haWwuY29tIiwiaWQiOjE0LCJyb2xlIjoyLCJpYXQiOjE3MDIxOTYxNDksImV4cCI6MTcwMjE5OTc0OX0.K3xhpgRRRMYwLEJ2emwhrYsdC00AW6GcSXngojV5CUw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"dok_spec\": \"dokter ginjal\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/updateDoctor/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"updateDoctor",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Informer",
+					"item": [
+						{
+							"name": "registerInformer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOjEsImlhdCI6MTcwMjM4MzIyMSwiZXhwIjoxNzAyMzg2ODIxfQ.g48a7LA7Jg7imiIpMaMbQ-JvKuHE-nrVsslz_r8L4Xo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Position\": [40.7128, -74.0060],\n  \"OtherData\": \"Additional information about the location\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllInformer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOjEsImlhdCI6MTcwMjQ3ODIxNiwiZXhwIjoxNzAyNDgxODE2fQ.pkx0GY0OqQDJz-B52XwGrGoyHordwSnw82ebbq4WgIY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/getAll",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getById",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "updateInformer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/update/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "uploadImages",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9ybWVyQGdtYWlsLmNvbSIsImlkIjoxNSwicm9sZSI6MSwiaWF0IjoxNzAyNTY0NDYyLCJleHAiOjE3MDI1NjgwNjJ9._cZhP1wHhrFnueFzoRbeLDucu88I92B0Y0UezBJGp4o",
 									"type": "string"
 								}
 							]
@@ -173,48 +435,19 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"dok_name\": \"Dr. John Doe\",\n  \"dok_spec\": \"Cardiologist\",\n  \"dok_email\": \"dok@email.com\",\n  \"dok_telp\": \"1234567890\",\n  \"dok_bio\": \"Experienced cardiologist with a passion for patient care.\",\n  \"dok_nostr\": \"12345\",\n  \"dok_location\": \"Hospital XYZ, City\",\n  \"dok_exp\": \"10 years\",\n  \"dok_status\": \"Active\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:7001/api/v1/doctor/register",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7001",
-							"path": [
-								"api",
-								"v1",
-								"doctor",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getAllDoctors",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
-									"type": "string"
+									"key": "image",
+									"contentType": "image/png",
+									"description": "makan tai",
+									"type": "file",
+									"src": "/Users/admin/Downloads/tomat.jpeg"
 								}
 							]
 						},
-						"method": "GET",
-						"header": [],
 						"url": {
-							"raw": "http://localhost:7001/api/v1/doctor/getAllDoctors",
+							"raw": "http://localhost:7001/api/v1/image/upload",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -223,51 +456,51 @@
 							"path": [
 								"api",
 								"v1",
-								"doctor",
-								"getAllDoctors"
+								"image",
+								"upload"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getDoctorById",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ham15dHNzc0BnbWFpbC5jb20iLCJpZCI6Nywicm9sZSI6MiwiaWF0IjoxNzAxOTI5ODQ1LCJleHAiOjE3MDE5MzM0NDV9.icqaBkkMPm19ZQ5pmfrSrFBoYGc8lZxCBx3cOv_r-3g",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:7001/api/v1/doctor/getDoctorById/4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "7001",
-							"path": [
-								"api",
-								"v1",
-								"doctor",
-								"getDoctorById",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateDoctor",
+					"name": "getImage",
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9ybWVyQGdtYWlsLmNvbSIsImlkIjoxNSwicm9sZSI6MSwiaWF0IjoxNzAyNTY0NDYyLCJleHAiOjE3MDI1NjgwNjJ9._cZhP1wHhrFnueFzoRbeLDucu88I92B0Y0UezBJGp4o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7001/api/v1/image/delete/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"delete",
+								"2"
+							]
+						}
 					},
 					"response": []
 				}
