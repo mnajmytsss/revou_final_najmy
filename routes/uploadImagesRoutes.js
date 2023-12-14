@@ -6,7 +6,7 @@ const imagesRouter = Router();
 const upload = multer();
 
 imagesRouter.post("/upload", upload.single('image'), uploadImage);
-imagesRouter.get("/get/:id", getImage);
-imagesRouter.delete("/delete/:id", deleteImage);
+imagesRouter.get("/get/:img_id", getImage);
+imagesRouter.delete("/delete/:img_id", deleteImage);
 
 module.exports = imagesRouter;

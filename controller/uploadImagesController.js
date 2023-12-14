@@ -70,7 +70,7 @@ const deleteImage = async (req, res) => {
           // Hapus data dari database
           await db.execute('DELETE FROM IMAGES WHERE IMG_ID = ?', [imageId]);
     
-          res.json({ success: true, message: 'Image deleted successfully' });
+          res.json({ success: true, message: 'Gambar berhasil dihapus' });
         } else {
           // Jika data tidak ditemukan, kirim respons 404 Not Found
           res.status(404).json({ error: 'Image not found' });
