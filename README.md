@@ -367,6 +367,87 @@ Token Authorization required
 ```
 ***
 
+### Upload Image
+
+### `POST /api/v1/image/upload`
+
+Token Authorization required
+
+**Request:**
+
+```
+    "mode": "formdata",
+    "formdata": [
+        {
+            "key": "image",
+            "contentType": "image/png",
+            "description": "description",
+            "type": "file",
+            "src": "/your/image/src"
+        }
+    ]
+
+```
+
+**Response:**
+
+```
+{
+    "imageUrl": "https://group-project1s3.amazonaws.com/1702564479280-tomat.jpeg",
+    "insertId": 2,
+    "uploadResponse": {
+        "$metadata": {
+            "httpStatusCode": 200,
+            "requestId": "M5ANY9H37YV65TEG",
+            "extendedRequestId": "ceswYXq2GwLN9o7mIFK8+rVHmXSZprI7nX5aKOwYVbS3U0yj8sbhUUHqH1YbKDt1sTjq92r9GL/8QwBJXy2StQ==",
+            "attempts": 1,
+            "totalRetryDelay": 0
+        },
+        "ETag": "\"fdc1dee279cb9f1e089f3ad07f5898e4\"",
+        "ServerSideEncryption": "AES256",
+        "Bucket": "group-project1",
+        "Key": "1702564479280-tomat.jpeg",
+        "Location": "https://group-project1.s3.ap-southeast-1.amazonaws.com/1702564479280-tomat.jpeg"
+    }
+}
+```
+***
+
+### Get Image By Id
+
+### `POST /api/v1/image/get/:img_id`
+
+Token Authorization required
+
+**Request:**
+
+**Response:**
+
+```
+{
+    "imageUrl": "https://group-project1s3.amazonaws.com/1702564479280-tomat.jpeg"
+}
+```
+***
+
+### Delete Image 
+
+### `POST /api/v1/image/delete/:img_id`
+
+Token Authorization required
+
+**Request:**
+
+**Response:**
+
+```
+{
+    "success": true,
+    "message": "Gambar berhasil dihapus"
+}
+```
+***
+
 ## Authentication
 
 The API uses JWT (JSON Web Token) for authentication. Include the token in the `Authorization` header of your requests.
