@@ -45,10 +45,9 @@ async function registerDoctor(req, res) {
   }
 }
 
-
 async function getAllDoctors(req, res) {
   try {
-    // Fetch all doctors from the DOKTERS table
+    // Mengambil semua dokter dari tabel DOCTORS
     const [doctors] = await db.execute('SELECT * FROM DOCTORS');
 
     res.status(200).json({ doctors });
@@ -62,17 +61,17 @@ async function getDoctorById(req, res) {
   try {
     const { dok_id } = req.params;
 
-    // Check if dok_id is provided
+    // Memeriksa apakah dok_id disediakan
     if (!dok_id) {
-      return res.status(400).json({ error: 'Parameter dok_id is required.' });
+      return res.status(400).json({ error: 'Parameter dok_id diperlukan.' });
     }
 
-    // Fetch the doctor with the specified ID from the DOCTORS table
+    // Mengambil dokter dengan ID yang spesifik dari tabel DOCTORS
     const [doctor] = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
 
-    // Check if the doctor is found
+    // Memeriksa apakah dokter ditemukan
     if (doctor.length === 0) {
-      return res.status(404).json({ error: 'Doctor not found.' });
+      return res.status(404).json({ error: 'Dokter tidak ditemukan.' });
     }
 
     res.status(200).json({ doctor: doctor[0] });
@@ -87,34 +86,34 @@ async function updateDoctor(req, res) {
     const { dok_id } = req.params;
     const updateParams = req.body;
 
-    // Fetch the existing doctor with the specified ID
+    // Mengambil dokter yang ada dengan ID yang spesifik
     const existingDoctor = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
     arrDoc = existingDoctor[0];
    
-    // Check if the doctor is found
+    // Memeriksa apakah dokter ditemukan
     if (arrDoc.length === 0) {
-      return res.status(404).json({ error: 'Doctor not found.' });
+      return res.status(404).json({ error: 'Dokter tidak ditemukan.' });
     }
 
-    // Ensure that the authenticated user is the owner of the doctor profile
+    // Memastikan bahwa pengguna yang terautentikasi adalah pemilik profil dokter
     const decoded = jwt.verify(req.headers.authorization.split(' ')[1], JWT_SIGN);
     if (decoded.id !== arrDoc[0].USER_ID) {
       return res.status(403).json({ error: 'Anda tidak memiliki izin untuk memperbarui informasi dokter ini.' });
     }
-    ;
-    // Generate the SET part of the SQL query based on the provided updateParams
+
+    // Menghasilkan bagian SET dari kueri SQL berdasarkan updateParams yang diberikan
     const updateValues = Object.keys(updateParams)
       .map((key) => `${key} = ?`)
       .join(', ');
 
-    // Prepare the SQL query with dynamic SET values
+    // Menyiapkan kueri SQL dengan nilai SET dinamis
     const sqlQuery = `UPDATE DOCTORS SET ${updateValues} WHERE DOK_ID = ?`;
 
-    // Prepare the values for execution
+    // Menyiapkan nilai untuk dieksekusi
     const updateValuesArray = Object.values(updateParams);
     updateValuesArray.push(dok_id);
 
-    // Update the doctor's information in the DOCTORS table
+    // Memperbarui informasi dokter di tabel DOCTORS
     await db.execute(sqlQuery, updateValuesArray);
 
     res.status(200).json({ message: 'Informasi dokter berhasil diperbarui.' });
