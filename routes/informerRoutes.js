@@ -6,8 +6,8 @@ const authenticationMiddleware = require('../middleware/authenticationMiddleware
 const informerRouter = Router()
 
 informerRouter.post("/register", registerInformer)
-informerRouter.get("/getAll",authenticationMiddleware, getAllInformer)
-informerRouter.get("/getById/:inf_id",authenticationMiddleware, getInformerById)
+informerRouter.get("/getAll", getAllInformer)
+informerRouter.get("/getById/:inf_id", getInformerById)
 informerRouter.put("/update/:inf_id", authorizationMiddlewareForRole1, authenticationMiddleware, updateInformer)
 
 module.exports = informerRouter
