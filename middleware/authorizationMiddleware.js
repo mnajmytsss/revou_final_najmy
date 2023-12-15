@@ -1,20 +1,21 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SIGN } = require('../config/index');
 
-const middlewareOtorisasi = (peranDiizinkan) => (req, res, next) => {
+const authorizationMiddleware = (allowedRoles) => (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: 'Tidak diizinkan' });
+    return res.status(401).json({ error: 'tidak memiliki akses otorisasi' });
   }
 
   const token = authHeader.split(' ')[1];
 
   try {
-    const tokenTerdekripsi = jwt.verify(token, JWT_SIGN);
-    
-    // Periksa apakah peran token yang terdekripsi termasuk dalam peran yang diizinkan
-    if (peranDiizinkan.includes(tokenTerdekripsi.role)) {
+    const decodedToken = jwt.verify(token, JWT_SIGN);
+    // console.log(decodedToken.role);
+
+    // Check if the decoded token's role is included in the allowed roles
+    if (allowedRoles.includes(decodedToken.role)) {
       next();
     } else {
       return res.status(403).json({ error: 'Akses ditolak!' });
@@ -24,12 +25,12 @@ const middlewareOtorisasi = (peranDiizinkan) => (req, res, next) => {
   }
 };
 
-const middlewareOtorisasiUntukPeran1 = middlewareOtorisasi("1");
-const middlewareOtorisasiUntukPeran2 = middlewareOtorisasi("2");
-const middlewareOtorisasiUntukPeran3 = middlewareOtorisasi("3");
+const authorizationMiddlewareForRole1 = authorizationMiddleware("1");
+const authorizationMiddlewareForRole2 = authorizationMiddleware("2");
+const authorizationMiddlewareForRole3 = authorizationMiddleware("3");
 
 module.exports = {
-  middlewareOtorisasiUntukPeran1,
-  middlewareOtorisasiUntukPeran2,
-  middlewareOtorisasiUntukPeran3
+  authorizationMiddlewareForRole1,
+  authorizationMiddlewareForRole2,
+  authorizationMiddlewareForRole3
 };
