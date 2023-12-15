@@ -113,28 +113,35 @@ The server will be accessible at `http://localhost:7001`.
 
 ### `POST /api/v1/doctor/register`
 
-Token Authorization required
-
 **Request:**
 
 ```
-{
-    "dok_name": "Dr. John Doe",
-    "dok_spec": "Cardiologist",
-    "dok_email": "dok@email.com",
-    "dok_telp": "1234567890",
-    "dok_bio": "Experienced cardiologist with a passion for patient care.",
-    "dok_nostr": "12345",
-    "dok_location": "Hospital XYZ, City",
-    "dok_exp": "10 years"
-}
+[
+    {
+        "user_email": "dokter18@gmail.com",
+        "user_pass": "dokter123",
+        "role_id": "2"
+    },
+    {
+        "dok_name": "Dr. Dokter 5",
+        "dok_spec": "Cardiologist",
+        "dok_email": "dok2@email.com",
+        "dok_telp": "1234567890",
+        "dok_bio": "Experienced cardiologist with a passion for patient care.",
+        "dok_nostr": "12345",
+        "dok_location": "Hospital XYZ, City",
+        "dok_exp": "10 years",
+        "dok_status": "Active"
+    }
+]
 ```
 
 **Response:**
 
 ```
 {
-    "dok_id": number
+    "user_id": 39,
+    "dok_id": 15
 }
 ```
 ***
@@ -273,24 +280,29 @@ Token Authorization required
 
 ### `POST /api/v1/informer/register`
 
-Token Authorization required
-
 **Request:**
 
 ```
-{
-  "inf_name": "Bulus Putih",
-  "inf_nik": "3202182710970123",
-  "inf_telp": "085674235412"
-}
-
+[
+  {
+    "user_email": "informer8@gmail.com",
+    "user_pass": "informer123",
+    "role_id": "1"
+  },
+  {
+    "inf_name": "John informer",
+    "inf_nik": "12345678901",
+    "inf_telp": "9876543210"
+  }
+]
 ```
 
 **Response:**
 
 ```
 {
-    "inf_id": 3
+    "user_id": 38,
+    "inf_id": 6
 }
 ```
 ***
