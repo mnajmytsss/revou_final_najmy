@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "b2a652a5-f96a-4636-9df4-feae7cccdf16",
+		"name": "Group Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29017989"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "registerUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6Im1uYWpteXRzc3MxIiwiZXhwIjoxNzAwNzQwMzg4fQ.tVmWRQTq2fnGWoYYz7GH4nNn1ZVPhDRMkf0lfZxhoWk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_email\": \"informer3@gmail.com\",\n    \"user_pass\": \"informer123\",\n    \"role_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n    \"user_email\": \"informer8@gmail.com\",\n    \"user_pass\": \"informer123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "activateDocAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjo5LCJyb2xlIjozLCJpYXQiOjE3MDIxOTU5MjksImV4cCI6MTcwMjE5OTUyOX0.a2_EH6EVDq2jUJOSKg1x7Zl2ZgZVDvQM6YvB03pCzFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/admin/activateDoctor/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"activateDoctor",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivateDocAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjo5LCJyb2xlIjozLCJpYXQiOjE3MDIxOTU5MjksImV4cCI6MTcwMjE5OTUyOX0.a2_EH6EVDq2jUJOSKg1x7Zl2ZgZVDvQM6YvB03pCzFg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/admin/deactivateDoctor/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"deactivateDoctor",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Doctor",
+					"item": [
+						{
+							"name": "registerDoctor",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"user_email\": \"dokter18@gmail.com\",\n        \"user_pass\": \"dokter123\",\n        \"role_id\": \"2\"\n    },\n    {\n        \"dok_name\": \"Dr. Dokter 5\",\n        \"dok_spec\": \"Cardiologist\",\n        \"dok_email\": \"dok2@email.com\",\n        \"dok_telp\": \"1234567890\",\n        \"dok_bio\": \"Experienced cardiologist with a passion for patient care.\",\n        \"dok_nostr\": \"12345\",\n        \"dok_location\": \"Hospital XYZ, City\",\n        \"dok_exp\": \"10 years\",\n        \"dok_status\": \"Active\"\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllDoctors",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/getAll",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getDoctorById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRva3RlcjJAZ21haWwuY29tIiwiaWQiOjE0LCJyb2xlIjoyLCJpYXQiOjE3MDIxOTYxNDksImV4cCI6MTcwMjE5OTc0OX0.K3xhpgRRRMYwLEJ2emwhrYsdC00AW6GcSXngojV5CUw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/getById/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"getById",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateDoctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRva3RlcjE4QGdtYWlsLmNvbSIsImlkIjozOSwicm9sZSI6MiwiaWF0IjoxNzAyNjYyNzA3LCJleHAiOjE3MDI2NjYzMDd9.969q4cGUUWSjzH1ykXzapv-NFPj3tb9EVOAItE3QInE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"dok_spec\": \"dokter ganjil\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/doctor/update/15",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"doctor",
+										"update",
+										"15"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Informer",
+					"item": [
+						{
+							"name": "registerInformer",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n  {\n    \"user_email\": \"informer8@gmail.com\",\n    \"user_pass\": \"informer123\",\n    \"role_id\": \"1\"\n  },\n  {\n    \"inf_name\": \"John informer\",\n    \"inf_nik\": \"12345678901\",\n    \"inf_telp\": \"9876543210\"\n  }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllInformer",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/getAll",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getById",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/getById/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"getById",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateInformer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9ybWVyOEBnbWFpbC5jb20iLCJpZCI6MzgsInJvbGUiOjEsImlhdCI6MTcwMjY2MjgyOCwiZXhwIjoxNzAyNjY2NDI4fQ.dGjV-PbidYW011NC4f2rwIWCOURh4cmhD2vqu0krA9w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"inf_name\": \"Bulus Biru\",\n  \"inf_nik\": \"3202182710970122\",\n  \"inf_telp\": \"085674235411\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7001/api/v1/informer/update/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7001",
+									"path": [
+										"api",
+										"v1",
+										"informer",
+										"update",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "uploadImages",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9ybWVyQGdtYWlsLmNvbSIsImlkIjoxNSwicm9sZSI6MSwiaWF0IjoxNzAyNTY0NDYyLCJleHAiOjE3MDI1NjgwNjJ9._cZhP1wHhrFnueFzoRbeLDucu88I92B0Y0UezBJGp4o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"contentType": "image/png",
+									"description": "makan tai",
+									"type": "file",
+									"src": "/Users/admin/Downloads/tomat.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7001/api/v1/image/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9ybWVyQGdtYWlsLmNvbSIsImlkIjoxNSwicm9sZSI6MSwiaWF0IjoxNzAyNTY0NDYyLCJleHAiOjE3MDI1NjgwNjJ9._cZhP1wHhrFnueFzoRbeLDucu88I92B0Y0UezBJGp4o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7001/api/v1/image/get/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"get",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZm9ybWVyQGdtYWlsLmNvbSIsImlkIjoxNSwicm9sZSI6MSwiaWF0IjoxNzAyNTY0NDYyLCJleHAiOjE3MDI1NjgwNjJ9._cZhP1wHhrFnueFzoRbeLDucu88I92B0Y0UezBJGp4o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7001/api/v1/image/delete/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
