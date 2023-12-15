@@ -27,7 +27,7 @@ const uploadImage = async (req, res) => {
     res.json({ imageUrl, insertId: insertResult.insertId, uploadResponse });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Terjadi Kesalahan Internal Server' });
   }
 };
 
@@ -40,12 +40,11 @@ const getImage = async (req, res) => {
           const imageUrl = result[0].IMG_LINK;
           res.json({ imageUrl });
         } else {
-
-          res.status(404).json({ error: 'Image not found' });
+          res.status(404).json({ error: 'Gambar tidak ditemukan' });
         }
       } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Terjadi Kesalahan Internal Server' });
 }};
 
 const deleteImage = async (req, res) => {
@@ -73,11 +72,11 @@ const deleteImage = async (req, res) => {
           res.json({ success: true, message: 'Gambar berhasil dihapus' });
         } else {
           // Jika data tidak ditemukan, kirim respons 404 Not Found
-          res.status(404).json({ error: 'Image not found' });
+          res.status(404).json({ error: 'Gambar tidak ditemukan' });
         }
       } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Terjadi Kesalahan Internal Server' });
       }
     }
     
