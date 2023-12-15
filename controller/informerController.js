@@ -1,42 +1,57 @@
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const { JWT_SIGN } = require('../config');
+const bcrypt = require('bcrypt');
+
+const validRoles = ['1'];
 
 async function registerInformer(req, res) {
-  const authHeader = req.headers.authorization
-  const token = authHeader.split(' ')[1]
   try {
-    const { inf_name, inf_nik, inf_telp } = req.body;
+    const [userData, informerData] = req.body;
+    const { user_email, user_pass, role_id } = userData;
+    const { inf_name, inf_nik, inf_telp } = informerData;
 
-    // memastikan user telah login dan memiliki role dengan value 1
-    const decoded = jwt.verify(token, JWT_SIGN);
-    const user_id = decoded.id
-
-    if (decoded.role !== (1)) {
-      return res.status(403).json({ error: 'Anda tidak memiliki izin untuk mendaftar sebagai informer.' });
+    if (!user_email || !user_pass || !validRoles.includes(role_id)) {
+      return res.status(400).json({ error: 'Silakan lengkapi semua data pada setiap objek registrasi.' });
     }
 
-    // mengecek apakah user_id yang diberikan valid
-    const [existingUser] = await db.execute('SELECT * FROM USERS WHERE user_id = ?', [user_id]);
-    if (existingUser.length === 0) {
-      return res.status(404).json({ error: 'User dengan ID yang diberikan tidak ditemukan.' });
+    console.log("Request Body:", req.body);
+
+    const hashedPassword = await bcrypt.hash(user_pass, 10);
+
+    // Insert data user ke dalam tabel USERS
+    let hasilUser;
+    try {
+      [hasilUser] = await db.execute(
+        'INSERT INTO USERS (user_email, user_pass, role_id, user_verified) VALUES (?, ?, ?, 0)',
+        [user_email, hashedPassword, role_id]
+      );
+
+    } catch (error) {
+      console.error("Error during user insertion:", error);
+      throw error; // Untuk melihat stack trace lengkap pada console
     }
 
-    // Check if the user has already registered as an informer
-    const [existingInformer] = await db.execute('SELECT * FROM INFORMER WHERE USER_ID = ?', [user_id]);
-    if (existingInformer.length > 0) {
-      return res.status(400).json({ error: 'Anda sudah terdaftar sebagai pelapor.' });
+    const insertedUserId = hasilUser.insertId;
+
+    // Jika rolenya adalah informer (role_id === '1'), tambahkan data informer ke dalam tabel INFORMER
+    if (role_id === '1') {
+      try {
+        const [hasilInformer] = await db.execute(
+          'INSERT INTO INFORMER (USER_ID, INF_NAME, INF_NIK, INF_TELP) VALUES (?, ?, ?, ?)',
+          [insertedUserId, inf_name, inf_nik, inf_telp]
+        );
+
+        const insertedInfId = hasilInformer.insertId;
+
+        res.status(201).json({ user_id: insertedUserId, inf_id: insertedInfId });
+      } catch (error) {
+        console.error("Error during informer insertion:", error);
+        throw error; // Untuk melihat stack trace lengkap pada console
+      }
+    } else {
+      res.status(201).json({ user_id: insertedUserId });
     }
-
-    // Insert data informer ke dalam tabel INFORMER
-    const [result] = await db.execute(
-      'INSERT INTO INFORMER (USER_ID, INF_NAME, INF_NIK, INF_TELP) VALUES (?, ?, ?, ?)',
-      [decoded.id, inf_name, inf_nik, inf_telp]
-    );
-
-    const insertedInfId = result.insertId;
-
-    res.status(201).json({ inf_id: insertedInfId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan server.' });
