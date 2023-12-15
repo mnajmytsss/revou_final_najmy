@@ -1,47 +1,50 @@
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const { JWT_SIGN } = require('../config');
+const bcrypt = require('bcrypt');
+
+const validRoles = ['2'];
 
 async function registerDoctor(req, res) {
-  const authHeader = req.headers.authorization
-  const token = authHeader.split(' ')[1]
   try {
-    const { dok_name, dok_spec, dok_email, dok_telp, dok_bio, dok_nostr, dok_location, dok_exp } = req.body;
+    const [userData, dokterData] = req.body;
+    const { user_email, user_pass, role_id } = userData;
+    const { dok_name, dok_spec, dok_email, dok_telp, dok_bio, dok_nostr, dok_location, dok_exp } = dokterData;
 
-    // memastikan user telah login dan memiliki role dengan value 2
-    const decoded = jwt.verify(token, JWT_SIGN);
-    const user_id = decoded.id
-
-    if (decoded.role !== (2)) {
-      return res.status(403).json({ error: 'Anda tidak memiliki izin untuk mendaftar sebagai dokter.' });
+    if (!user_email || !user_pass || !validRoles.includes(role_id)) {
+      return res.status(400).json({ error: 'Silakan lengkapi semua data pada setiap objek registrasi.' });
     }
 
-    // mengecek apakah user_id yang diberikan valid
-    const [existingUser] = await db.execute('SELECT * FROM USERS WHERE user_id = ?', [user_id]);
-    if (existingUser.length === 0) {
-      return res.status(404).json({ error: 'User dengan ID yang diberikan tidak ditemukan.' });
-    }
+    // Hash password sebelum dimasukkan ke dalam database
+    const hashedPassword = await bcrypt.hash(user_pass, 10);
 
-    // Check if the user has already registered as a doctor
-    const [existingDoctor] = await db.execute('SELECT * FROM DOCTORS WHERE USER_ID = ?', [user_id]);
-    if (existingDoctor.length > 0) {
-      return res.status(400).json({ error: 'Anda sudah terdaftar sebagai dokter.' });
-    }
-
-    // Insert data dokter ke dalam tabel DOKTERS
-    const [result] = await db.execute(
-      'INSERT INTO DOCTORS (USER_ID, DOK_NAME, DOK_SPEC, DOK_EMAIL, DOK_TELP, DOK_BIO, DOK_NOSTR, DOK_LOCATION, DOK_EXP, DOK_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [decoded.id, dok_name, dok_spec, dok_email, dok_telp, dok_bio, dok_nostr, dok_location, dok_exp, '0']
+    // Insert data user ke dalam tabel USERS
+    const [hasilUser] = await db.execute(
+      'INSERT INTO USERS (user_email, user_pass, role_id, user_verified) VALUES (?, ?, ?, 0)',
+      [user_email, hashedPassword, role_id]
     );
 
-    const insertedDokId = result.insertId;
+    const insertedUserId = hasilUser.insertId;
 
-    res.status(201).json({ dok_id: insertedDokId });
+    // Jika rolenya adalah dokter (role_id === '2'), tambahkan data dokter ke dalam tabel DOCTORS
+    if (role_id === '2') {
+      const [hasilDokter] = await db.execute(
+        'INSERT INTO DOCTORS (USER_ID, DOK_NAME, DOK_SPEC, DOK_EMAIL, DOK_TELP, DOK_BIO, DOK_NOSTR, DOK_LOCATION, DOK_EXP, DOK_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [insertedUserId, dok_name, dok_spec, dok_email, dok_telp, dok_bio, dok_nostr, dok_location, dok_exp, '0']
+      );
+
+      const insertedDokId = hasilDokter.insertId;
+
+      res.status(201).json({ user_id: insertedUserId, dok_id: insertedDokId });
+    } else {
+      res.status(201).json({ user_id: insertedUserId });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan server.' });
   }
 }
+
 
 async function getAllDoctors(req, res) {
   try {
