@@ -15,6 +15,17 @@ async function registerDoctor(req, res) {
       return res.status(400).json({ error: 'Silakan lengkapi semua data pada setiap objek registrasi.' });
     }
 
+    const isTelpUsed = await isFieldUsed('DOK_TELP', dok_telp);
+    const isNostrUsed = await isFieldUsed('DOK_NOSTR', dok_nostr);
+
+    if (isTelpUsed) {
+      return res.status(400).json({ error: 'Nomor telepon sudah digunakan.' });
+    }
+
+    if (isNostrUsed) {
+      return res.status(400).json({ error: 'Nomor STR sudah digunakan.' });
+    }
+
     // Hash password sebelum dimasukkan ke dalam database
     const hashedPassword = await bcrypt.hash(user_pass, 10);
 
@@ -45,10 +56,15 @@ async function registerDoctor(req, res) {
   }
 }
 
+async function isFieldUsed(fieldName, value) {
+  const [result] = await db.execute(`SELECT ${fieldName} FROM DOCTORS WHERE ${fieldName} = ?`, [value]);
+  return result.length > 0;
+}
+
 async function getAllDoctors(req, res) {
   try {
     // Mengambil semua dokter dari tabel DOCTORS
-    const [doctors] = await db.execute('SELECT * FROM DOCTORS');
+    const [doctors] = await db.execute('SELECT * FROM DOCTORS WHERE dok_status = 1');
 
     res.status(200).json({ doctors });
   } catch (error) {
