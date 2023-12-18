@@ -19,6 +19,12 @@ async function registerInformer(req, res) {
 
     const hashedPassword = await bcrypt.hash(user_pass, 10);
 
+    const isNikUsed = await isFieldUsed('INF_NIK', inf_nik);
+
+    if (isNikUsed) {
+      return res.status(400).json({ error: 'NIK sudah terdaftar.' });
+    }
+
     // Insert data user ke dalam tabel USERS
     let hasilUser;
     try {
@@ -56,6 +62,11 @@ async function registerInformer(req, res) {
     console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan server.' });
   }
+}
+
+async function isFieldUsed(fieldName, value) {
+  const [result] = await db.execute(`SELECT ${fieldName} FROM INFORMER WHERE ${fieldName} = ?`, [value]);
+  return result.length > 0;
 }
 
 async function getAllInformer(req, res) {
