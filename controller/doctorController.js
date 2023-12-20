@@ -83,7 +83,7 @@ async function getDoctorById(req, res) {
     }
 
     // Mengambil dokter dengan ID yang spesifik dari tabel DOCTORS
-    const [doctor] = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+    const [doctor] = await db.execute('SELECT * FROM DOCTORS WHERE USER_ID = ?', [dok_id]);
 
     // Memeriksa apakah dokter ditemukan
     if (doctor.length === 0) {
@@ -103,7 +103,7 @@ async function updateDoctor(req, res) {
     const updateParams = req.body;
 
     // Mengambil dokter yang ada dengan ID yang spesifik
-    const existingDoctor = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+    const existingDoctor = await db.execute('SELECT * FROM DOCTORS WHERE USER_ID = ?', [dok_id]);
     arrDoc = existingDoctor[0];
    
     // Memeriksa apakah dokter ditemukan
@@ -123,7 +123,7 @@ async function updateDoctor(req, res) {
       .join(', ');
 
     // Menyiapkan kueri SQL dengan nilai SET dinamis
-    const sqlQuery = `UPDATE DOCTORS SET ${updateValues} WHERE DOK_ID = ?`;
+    const sqlQuery = `UPDATE DOCTORS SET ${updateValues} WHERE USER_ID = ?`;
 
     // Menyiapkan nilai untuk dieksekusi
     const updateValuesArray = Object.values(updateParams);
