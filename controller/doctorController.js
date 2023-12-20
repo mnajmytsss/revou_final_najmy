@@ -83,7 +83,7 @@ async function getDoctorById(req, res) {
     }
 
     // Mengambil dokter dengan ID yang spesifik dari tabel DOCTORS
-    const [doctor] = await db.execute('SELECT * FROM DOCTORS WHERE DOK_ID = ?', [dok_id]);
+    const [doctor] = await db.execute('SELECT * FROM DOCTORS WHERE USER_ID = ?', [dok_id]);
 
     // Memeriksa apakah dokter ditemukan
     if (doctor.length === 0) {
