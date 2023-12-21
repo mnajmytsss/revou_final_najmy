@@ -131,7 +131,7 @@ async function updateInformer(req, res) {
       .join(', ');
 
     // Menyiapkan kueri SQL dengan nilai SET dinamis
-    const sqlQuery = `UPDATE INFORMER SET ${updateValues} WHERE INF_ID = ?`;
+    const sqlQuery = `UPDATE INFORMER SET ${updateValues} WHERE USER_ID = ?`;
 
     // Menyiapkan nilai untuk dieksekusi
     const updateValuesArray = Object.values(updateParams);
