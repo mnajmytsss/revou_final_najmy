@@ -143,9 +143,17 @@ async function updateInformer(req, res) {
     res.status(200).json({ message: 'Informasi informer berhasil diperbarui.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Terjadi kesalahan server.' });
+
+    if (error.code === 'ER_DUP_ENTRY') {
+      // Kesalahan duplicate entry
+      res.status(400).json({ error: 'NIK atau nomor telepon sudah terdaftar.' });
+    } else {
+      // Kesalahan lainnya
+      res.status(500).json({ error: 'Terjadi kesalahan server.' });
+    }
   }
 }
+
 
 module.exports = {
     registerInformer,
