@@ -91,7 +91,7 @@ async function getInformerById(req, res) {
     }
 
     // Mengambil informer dengan ID yang spesifik dari tabel INFORMER
-    const [informer] = await db.execute('SELECT * FROM INFORMER WHERE INF_ID = ?', [inf_id]);
+    const [informer] = await db.execute('SELECT * FROM INFORMER WHERE USER_ID = ?', [inf_id]);
 
     // Memeriksa apakah informer ditemukan
     if (informer.length === 0) {
@@ -111,7 +111,7 @@ async function updateInformer(req, res) {
     const updateParams = req.body;
 
     // Mengambil informer yang ada dengan ID yang spesifik
-    const existingInformer = await db.execute('SELECT * FROM INFORMER WHERE INF_ID = ?', [inf_id]);
+    const existingInformer = await db.execute('SELECT * FROM INFORMER WHERE USER_ID = ?', [inf_id]);
     arrInf = existingInformer[0];
    
     // Memeriksa apakah informer ditemukan
