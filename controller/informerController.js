@@ -112,7 +112,7 @@ async function updateInformer(req, res) {
 
     // Mengambil informer yang ada dengan ID yang spesifik
     const existingInformer = await db.execute('SELECT * FROM INFORMER WHERE USER_ID = ?', [inf_id]);
-    arrInf = existingInformer[0];
+    const arrInf = existingInformer[0];
    
     // Memeriksa apakah informer ditemukan
     if (arrInf.length === 0) {
@@ -122,7 +122,12 @@ async function updateInformer(req, res) {
     // Memastikan bahwa pengguna yang terautentikasi adalah pemilik profil informer
     const decoded = jwt.verify(req.headers.authorization.split(' ')[1], JWT_SIGN);
     if (decoded.id !== arrInf[0].USER_ID) {
-      return res.status(403).json({ error: 'Anda tidak memiliki izin untuk memperbarui informasi informer ini.' });
+      return res.status  (403).json({ error: 'Anda tidak memiliki izin untuk memperbarui informasi informer ini.' });
+    }
+
+    // Pemeriksaan untuk memastikan hanya nama yang diperbarui
+    if ('NIK' in updateParams || 'nomor_telepon' in updateParams) {
+      return res.status(400).json({ error: 'Anda tidak diizinkan untuk memperbarui NIK atau nomor telepon.' });
     }
 
     // Menghasilkan bagian SET dari kueri SQL berdasarkan updateParams yang diberikan
@@ -153,6 +158,7 @@ async function updateInformer(req, res) {
     }
   }
 }
+
 
 
 module.exports = {
